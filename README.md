@@ -1,1 +1,1 @@
-# devise-genie
+# Devise Genie
