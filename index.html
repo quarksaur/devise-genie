@@ -12,21 +12,22 @@
     </head>
     <body>
         <div id="window">
-            <h1>Devise Genie</h1>
+            <h1>Devise Genie </h1>
+            <p>See how much money you may have in other countries.</p>
             <form action="" id="deviseConverter">
                 <section class="formElement">
                     <input class="amount" id="amountInput" placeholder="Enter amount" type="number" inputmode="numeric" />
                     <select name="deviseInput" class="devise" id="deviseInput">
-                        <option value="">Select</option>
+                        <option value="">Select devise</option>
                     </select>
                 </section>
 
-                <span class="material-symbols-rounded"> swap_horiz </span>
+                <span id="swap_button" class="material-symbols-rounded"> swap_horiz </span>
 
                 <section class="formElement">
-                    <div class="amount" id="amountOutput" type="number" inputmode="numeric">Converted result</div>
+                    <input class="amount" id="amountOutput" placeholder="Result" type="number" inputmode="numeric" disabled>
                     <select name="deviseOutput" class="devise" id="deviseOutput">
-                        <option value="">Select</option>
+                        <option value="">Select devise</option>
                     </select>
                 </section>
             </form>
