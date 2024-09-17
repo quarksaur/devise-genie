@@ -1,6 +1,7 @@
 const apiKey = "5d99ee095d120b559f4db2db";
 let exchangeRateList =
 	JSON.parse(localStorage.getItem("exchangeRateList")) || [];
+let currentExchangeRate;
 window.addEventListener("load", async () => {
 	try {
 		const response = await fetch(
@@ -30,7 +31,24 @@ function addCurrencyOptions(currencies) {
 	});
 }
 
-document.getElementById("amountInput").addEventListener("input", async () => {
+document.getElementById("swap_button").addEventListener("click", () => {
+	const inputCurrency = document.getElementById("deviseInput").value;
+	const outputCurrency = document.getElementById("deviseOutput").value;
+	document.getElementById("deviseInput").value = outputCurrency;
+	document.getElementById("deviseOutput").value = inputCurrency;
+	if (inputCurrency && outputCurrency) {
+		console.log(document.getElementById("amountOutput").value);
+		document.getElementById("amountInput").value = parseFloat(
+			document.getElementById("amountOutput").innerHTML
+		);
+		if (currentExchangeRate !== undefined) {
+			currentExchangeRate = 1 / currentExchangeRate;
+		}
+		handleAmountInput();
+	}
+});
+
+async function handleAmountInput() {
 	console.log(document.getElementById("deviseInput").value);
 	console.log(exchangeRateList);
 	if (
@@ -43,59 +61,80 @@ document.getElementById("amountInput").addEventListener("input", async () => {
 		const outputCurrency = document
 			.getElementById("deviseOutput")
 			.value.slice(0, 3);
-		if (
-			!exchangeRateList.some(
-				(entry) =>
-					(entry.inputCurrency === inputCurrency &&
-						entry.outputCurrency === outputCurrency) ||
-					(entry.inputCurrency === outputCurrency &&
-						entry.outputCurrency === inputCurrency)
-			)
-		) {
-			try {
-				const response = await fetch(
-					`https://v6.exchangerate-api.com/v6/${apiKey}/pair/${inputCurrency}/${outputCurrency}`
-				);
-				const data = await response.json();
-				const exchangeRate = data.conversion_rate;
+		if (inputCurrency !== outputCurrency) {
+			if (
+				!exchangeRateList.some(
+					(entry) =>
+						(entry.inputCurrency === inputCurrency &&
+							entry.outputCurrency === outputCurrency) ||
+						(entry.inputCurrency === outputCurrency &&
+							entry.outputCurrency === inputCurrency)
+				)
+			) {
+				try {
+					const response = await fetch(
+						`https://v6.exchangerate-api.com/v6/${apiKey}/pair/${inputCurrency}/${outputCurrency}`
+					);
+					const data = await response.json();
+					const exchangeRate = data.conversion_rate;
 
-				const newEntry = {
-					inputCurrency: inputCurrency,
-					outputCurrency: outputCurrency,
-					exchangeRate: exchangeRate,
-					date: new Date().toISOString().split("T")[0],
-				};
-				exchangeRateList.push(newEntry);
-				localStorage.setItem(
-					"exchangeRateList",
-					JSON.stringify(exchangeRateList)
-				);
+					const newEntry = {
+						inputCurrency: inputCurrency,
+						outputCurrency: outputCurrency,
+						exchangeRate: exchangeRate,
+						date: new Date().toISOString().split("T")[0],
+					};
+					exchangeRateList.push(newEntry);
+					localStorage.setItem(
+						"exchangeRateList",
+						JSON.stringify(exchangeRateList)
+					);
 
+					const amountOutput = document.getElementById("amountOutput");
+					amountOutput.innerHTML = (
+						document.getElementById("amountInput").value * exchangeRate
+					).toFixed(2);
+				} catch (error) {
+					console.error("Error fetching exchange rate:", error);
+				}
+			} else {
+				console.log("Existing entry");
+				const entrySame = exchangeRateList.find(
+					(entry) =>
+						(entry.inputCurrency === inputCurrency &&
+							entry.outputCurrency === outputCurrency) ||
+						(entry.inputCurrency === outputCurrency &&
+							entry.outputCurrency === inputCurrency)
+				);
+				let exchangeRate;
+				if (entrySame.inputCurrency === inputCurrency) {
+					exchangeRate = entrySame.exchangeRate;
+				} else {
+					exchangeRate = 1 / entrySame.exchangeRate;
+				}
 				const amountOutput = document.getElementById("amountOutput");
 				amountOutput.innerHTML = (
 					document.getElementById("amountInput").value * exchangeRate
 				).toFixed(2);
-			} catch (error) {
-				console.error("Error fetching exchange rate:", error);
 			}
 		} else {
-			const entrySame = exchangeRateList.find(
-				(entry) =>
-					(entry.inputCurrency === inputCurrency &&
-						entry.outputCurrency === outputCurrency) ||
-					(entry.inputCurrency === outputCurrency &&
-						entry.outputCurrency === inputCurrency)
-			);
-			let exchangeRate;
-			if (entrySame.inputCurrency === inputCurrency) {
-				exchangeRate = entrySame.exchangeRate;
-			} else {
-				exchangeRate = 1 / entrySame.exchangeRate;
-			}
-			const amountOutput = document.getElementById("amountOutput");
-			amountOutput.innerHTML = (
-				document.getElementById("amountInput").value * exchangeRate
-			).toFixed(2);
+			console.log("Same currency");
+			document.getElementById("amountOutput").innerHTML =
+				document.getElementById("amountInput").value;
 		}
+	} else {
+		console.log("No currency selected");
+		document.getElementById("amountOutput").innerHTML = "Converted result";
 	}
-});
+}
+
+document
+	.getElementById("amountInput")
+	.addEventListener("input", handleAmountInput);
+
+document
+	.getElementById("deviseInput")
+	.addEventListener("change", handleAmountInput);
+document
+	.getElementById("deviseOutput")
+	.addEventListener("change", handleAmountInput);
