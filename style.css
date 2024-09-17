@@ -1,0 +1,53 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100dvw;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+#deviseConverter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.formElement {
+    display: flex;
+    flex-direction: row;
+}
+
+.amount {
+    width: 10rem;
+    padding: 1rem;
+
+    border: none;
+    border-radius: 1rem 0 0 1rem;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.devise {
+    padding: 1rem;
+
+    border: none;
+    border-left: 2px solid rgba(0, 0, 0, 0.25);
+    border-radius: 0 1rem 1rem 0;
+    background-color: rgba(0, 0, 0, 0.25);
+}
