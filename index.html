@@ -14,30 +14,54 @@
 			rel="stylesheet"
 			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
 
-        <title>Devise Genie</title>
-    </head>
-    <body>
-        <div id="window">
-            <h1>Devise Genie </h1>
-            <p>See how much money you may have in other countries.</p>
-            <form action="" id="deviseConverter">
-                <section class="formElement">
-                    <input class="amount" id="amountInput" placeholder="Enter amount" type="number" inputmode="numeric" />
-                    <select name="deviseInput" class="devise" id="deviseInput">
-                        <option value="">Select devise</option>
-                    </select>
-                </section>
+		<title>Devise Genie</title>
+	</head>
+	<body>
+		<div id="window">
+			<h1>Devise Genie</h1>
+			<p>See how much money you may have in other countries.</p>
 
-                <span id="swap_button" class="material-symbols-rounded"> swap_horiz </span>
+			<form
+				action=""
+				id="deviseConverter">
+				<section class="formElement">
+					<input
+						class="amount"
+						id="amountInput"
+						placeholder="Enter amount"
+						type="number"
+						inputmode="numeric" />
+					<select
+						name="deviseInput"
+						class="devise"
+						id="deviseInput">
+						<option value="">Select devise</option>
+					</select>
+				</section>
 
-                <section class="formElement">
-                    <input class="amount" id="amountOutput" placeholder="Result" type="number" inputmode="numeric" disabled>
-                    <select name="deviseOutput" class="devise" id="deviseOutput">
-                        <option value="">Select devise</option>
-                    </select>
-                </section>
-            </form>
-        </div>
+				<span
+					id="swap_button"
+					class="material-symbols-rounded">
+					swap_horiz
+				</span>
+
+				<section class="formElement">
+					<input
+						class="amount"
+						id="amountOutput"
+						placeholder="Result"
+						type="number"
+						inputmode="numeric"
+						disabled />
+					<select
+						name="deviseOutput"
+						class="devise"
+						id="deviseOutput">
+						<option value="">Select devise</option>
+					</select>
+				</section>
+			</form>
+		</div>
 
 		<script src="script.js"></script>
 	</body>
