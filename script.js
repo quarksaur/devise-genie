@@ -1,4 +1,4 @@
-const apiKey = "5d99ee095d120b559f4db2db";
+const apiKey = "";
 let exchangeRateList =
 	JSON.parse(localStorage.getItem("exchangeRateList")) || [];
 let currentExchangeRate;
