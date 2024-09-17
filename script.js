@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
-const apiKey = "5d99ee095d120b559f4db2db";
-=======
-const apiKey = "792a3a8ac28a9b582972ca94";
->>>>>>> Stashed changes
+const apiKey = "";
 let exchangeRateList =
 	JSON.parse(localStorage.getItem("exchangeRateList")) || [];
 let currentExchangeRate;
