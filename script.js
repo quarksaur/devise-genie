@@ -58,8 +58,10 @@ document.getElementById("swap_button").addEventListener("click", () => {
 
 function displayExchangeRate(firstCurrency, secondCurrency, exchangeRate) {
 	if (firstCurrency != "") {
-		const displayedCurrency = firstCurrency * exchangeRate;
-		exchangeRateDisplay.innerHTML = `1 ${firstCurrency} = ${displayedCurrency} ${secondCurrency}`;
+		const displayedCurrency = 1 * exchangeRate;
+		exchangeRateDisplay.innerHTML = `1 ${firstCurrency} = ${displayedCurrency.toFixed(
+			3
+		)} ${secondCurrency}`;
 		exchangeRateDisplay.classList.add("show");
 	} else {
 		exchangeRateDisplay.innerHTML = "";
@@ -142,6 +144,7 @@ async function handleAmountInput() {
 	} else {
 		console.log("No currency selected");
 		amountOutput.value = "";
+		displayExchangeRate("", "", 0);
 	}
 }
 
