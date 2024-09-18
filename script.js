@@ -1,4 +1,6 @@
 const apiKey = "792a3a8ac28a9b582972ca94";
+const invalidChars = ["-", "e", "+", "E"];
+
 let exchangeRateList =
 	JSON.parse(localStorage.getItem("exchangeRateList")) || [];
 let currentExchangeRate;
@@ -126,6 +128,11 @@ async function handleAmountInput() {
 	}
 }
 
+amountInput.addEventListener("keypress", function (event) {
+	if (invalidChars.includes(event.key)) {
+		event.preventDefault();
+	}
+});
 amountInput.addEventListener("input", handleAmountInput);
 currencySelectInput.addEventListener("change", handleAmountInput);
 currencySelectOutput.addEventListener("change", handleAmountInput);
