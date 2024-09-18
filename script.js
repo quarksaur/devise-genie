@@ -152,4 +152,15 @@ amountInput.addEventListener("keypress", function (event) {
 });
 amountInput.addEventListener("input", handleAmountInput);
 currencySelectInput.addEventListener("change", handleAmountInput);
+currencySelectInput.addEventListener("change", function () {
+	if (currencySelectInput.value == "") {
+		currencySelectInput.classList.add("invalid");
+	} else currencySelectInput.classList.remove("invalid");
+});
+
 currencySelectOutput.addEventListener("change", handleAmountInput);
+currencySelectOutput.addEventListener("change", function () {
+	if (currencySelectOutput.value == "") {
+		currencySelectOutput.classList.add("invalid");
+	} else currencySelectOutput.classList.remove("invalid");
+});
