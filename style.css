@@ -1,4 +1,8 @@
+/* External resource */
+
 @import url("https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+
+/* Global properties */
 
 * {
     box-sizing: border-box;
@@ -93,6 +97,10 @@ p {
     cursor: pointer;
 }
 
+.devise.invalid {
+    border: 2px solid rgb(180, 0, 0);
+}
+
 #swap_button {
     padding: 16px;
     border-radius: 100%;
@@ -101,4 +109,14 @@ p {
 #swap_button:hover {
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0.25);
+}
+
+#currencyRate {
+    visibility: hidden;
+    height: 0;
+}
+
+#currencyRate.show {
+    visibility: visible;
+    height: auto;
 }
