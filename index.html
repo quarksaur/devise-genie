@@ -5,32 +5,44 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <!-- Resources -->
+
         <link rel="stylesheet" href="style.css" />
+        <link rel="icon" type="image/x-icon" href="star.png">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
 
-        <title>Devise Genie</title>
+        <title>Currency Genie</title>
     </head>
     <body>
+
+        <!-- Converter global block -->
+
         <div id="window">
-            <h1>Devise Genie </h1>
+            <h1>Currency Genie</h1>
             <p>See how much money you may have in other countries.</p>
+
+            <!-- Converter form -->
+
             <form action="" id="deviseConverter">
                 <section class="formElement">
                     <input class="amount" id="amountInput" placeholder="Enter amount" type="number" inputmode="numeric" />
-                    <select name="deviseInput" class="devise" id="deviseInput">
-                        <option value="">Select devise</option>
+                    <select name="deviseInput" class="devise" id="deviseInput" aria-invalid="true">
+                        <option value="">Select currency</option>
                     </select>
                 </section>
 
                 <span id="swap_button" class="material-symbols-rounded"> swap_horiz </span>
 
                 <section class="formElement">
-                    <input class="amount" id="amountOutput" placeholder="Result" type="number" inputmode="numeric" disabled>
+                    <input class="amount" id="amountOutput" placeholder="Result" type="number" inputmode="numeric" disabled />
                     <select name="deviseOutput" class="devise" id="deviseOutput">
-                        <option value="">Select devise</option>
+                        <option value="">Select currency</option>
                     </select>
                 </section>
             </form>
+
+            <!-- Currency for One -->
+
+            <p id="currencyRate"></p>
         </div>
 
         <script src="script.js"></script>
