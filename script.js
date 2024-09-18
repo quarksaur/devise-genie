@@ -55,6 +55,7 @@ document.getElementById("swap_button").addEventListener("click", () => {
 });
 
 async function handleAmountInput() {
+	const currentTime = new Date().getTime();
 	console.log(document.getElementById("deviseInput").value);
 	if (
 		document.getElementById("deviseInput").value != "" &&
@@ -67,15 +68,15 @@ async function handleAmountInput() {
 			.getElementById("deviseOutput")
 			.value.slice(0, 3);
 		if (inputCurrency !== outputCurrency) {
-			if (
-				!exchangeRateList.some(
-					(entry) =>
-						(entry.inputCurrency === inputCurrency &&
-							entry.outputCurrency === outputCurrency) ||
-						(entry.inputCurrency === outputCurrency &&
-							entry.outputCurrency === inputCurrency)
-				)
-			) {
+			const foundEntry = exchangeRateList.some(
+				(entry) =>
+					(entry.inputCurrency === inputCurrency &&
+						entry.outputCurrency === outputCurrency) ||
+					(entry.inputCurrency === outputCurrency &&
+						entry.outputCurrency === inputCurrency)
+			);
+			const timeSinceEntry = currentTime - foundEntry.date.getTime();
+			if (foundEntry && timeSinceEntry < 86400000) {
 				try {
 					const response = await fetch(
 						`https://v6.exchangerate-api.com/v6/${apiKey}/pair/${inputCurrency}/${outputCurrency}`
@@ -87,7 +88,7 @@ async function handleAmountInput() {
 						inputCurrency: inputCurrency,
 						outputCurrency: outputCurrency,
 						exchangeRate: exchangeRate,
-						date: new Date().toISOString().split("T")[0],
+						date: new Date(),
 					};
 					exchangeRateList.push(newEntry);
 					localStorage.setItem(
