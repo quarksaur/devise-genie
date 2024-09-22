@@ -1,4 +1,4 @@
-const apiKey = "792a3a8ac28a9b582972ca94";
+const apiKey = "";
 const invalidChars = ["-", "e", "+", "E"];
 
 let exchangeRateList =
